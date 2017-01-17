@@ -8,8 +8,10 @@ import { NavController } from 'ionic-angular';
 })
 export class HomePage {
   toTranslate: any; //restrict to int?
+  translation: string; 
+  translationDone: boolean;
   constructor(public navCtrl: NavController) {
-
+    this.translationDone = false; 
   }
   translate() { //must be under 1000 for now
     let number = this.toTranslate;
@@ -42,9 +44,10 @@ export class HomePage {
 
       kanji.reverse();
     }
-
-
-    alert(kanji);
+    
+    this.translation = kanji.join('');
+    this.translationDone = true;
+    //alert(kanji.join(''));
 
   }
 

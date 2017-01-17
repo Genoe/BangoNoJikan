@@ -10,9 +10,13 @@
   
 
     <ion-item>
-      <ion-label floating>Enter a Number in Roman Numerals</ion-label>
+      <ion-label floating>Enter a number between 0 and 1000 to translate</ion-label>
       <ion-input type="number" [value]="toTranslate" [(ngModel)]="toTranslate"></ion-input>
     </ion-item>
+
+    <ion-item *ngIf="translationDone">
+      <p>{{translation}}</p>
+    </ion-item>
  
-  <button ion-button (click)='translate()'>Button</button>
+  <button ion-button (click)='translate()'>Translate!</button>
 </ion-content>
