@@ -1,0 +1,18 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>
+      Japanese Number Translator
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  
+
+    <ion-item>
+      <ion-label floating>Enter a Number in Roman Numerals</ion-label>
+      <ion-input type="number" [value]="toTranslate" [(ngModel)]="toTranslate"></ion-input>
+    </ion-item>
+ 
+  <button ion-button (click)='translate()'>Button</button>
+</ion-content>
