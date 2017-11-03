@@ -1,88 +1,95 @@
 import { Component } from '@angular/core';
-
+import { TextToSpeech } from '@ionic-native/text-to-speech'; //cordova plugin add cordova-plugin-tts
 import { NavController } from 'ionic-angular';
 
 @Component({
   selector: 'page-home',
   templateUrl: 'home.html'
 })
+
 export class HomePage {
+  masks: any = {
+    toTranslate: [/[1-9]/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/]
+};
   toTranslate: any; //restrict to int?
-  translation: string; 
+  toTranslate_fixed: any;
+  translation: string;
   translationDone: boolean;
-  constructor(public navCtrl: NavController) {
-    this.translationDone = false; 
+  
+  constructor(public navCtrl: NavController, private tts: TextToSpeech) {
+    this.translationDone = false;
   }
-  translate() { //must be under 1000 for now
-    let number = this.toTranslate;
-    let digits = []; //the array of the digits inputted by the user
-    let sNumber = number;
-    let kanji = [];
-    let kanjiCount = 0;
 
-    for (var i = 0, len = sNumber.length; i < len; i += 1) { //put the number into an array. 
-      digits.push(+sNumber.charAt(i));
+  onTranslate(event: Event) {
+    let toTranslate = (<HTMLInputElement>event.srcElement).value;
+  
+    this.toTranslate_fixed = toTranslate;
+    this.convert(this.toTranslate_fixed);
+  }
+
+  speak(){
+    this.tts.speak({text:this.translation, locale: 'ja', rate:1.35});
+  }
+
+  specialNames: string[] = [
+    '', '万', '億', '兆', '京', '垓', '𥝱', '穣'];
+
+
+  numNames: string[] = [
+    '', '一', '二', '三', '四', '五', '六', '七', '八', '九', '十'];
+
+  convertLessThanTenThousand(number) {
+    let current;
+
+    current = this.numNames[number % 10]; // Solve for ones
+    number = Math.floor(number / 10);
+    if (number === 0) {
+      return current;
+    } // Check if we're done
+
+    if (number % 10 < 2) { if (number % 10 === 1) { current = '十' + current;}
+    } else { // Solve for tens
+      current = this.numNames[number % 10] + '十' + current;
+    }
+    number = Math.floor(number / 10);
+
+    if (number === 0) { return current; } // Check if we're done
+
+    if (number % 10 < 2) { if (number % 10 === 1) { current = '百' + current;}
+    } else { // Solve for hundreds
+      current = this.numNames[number % 10] + '百' + current;
+    }
+    number = Math.floor(number / 10);
+    if (number === 0) { return current; } // Check if we're done
+
+    return this.numNames[number] + '千' + current; // Return with thousands
+  }
+
+  convert(number) {
+
+    if (number === 0) { this.translationDone = true; this.translation = "零"; return; }
+
+    let prefix = '';
+    let current = '';
+    let place = 0;
+
+    if (number < 0) {
+      number = -number;
+      prefix = 'マイナス';
     }
 
-    kanji[0] = this.digitToKanji(number)
-    if (kanji[0] == 'x') { //if it's a number with a set kanji, we are already done.
-      if (digits[digits.length - 1] != 0) { //if it's not zero, put the number in the kanji array. 
-        kanji[kanjiCount++] = this.digitToKanji(digits[digits.length - 1]);
+    do {
+      const n: number = number % 10000;
+      if (n !== 0) {
+        const s = this.convertLessThanTenThousand(n);
+        current = s + this.specialNames[place] + current;
       }
+      place++;
+      number = Math.floor(number / 10000);
+    } while (number > 0);
 
-      if (digits.length - 2 >= 0 && digits[digits.length - 2] != 0) { //if there is a 10's digit, put 10 and the digit in the array
-        kanji[kanjiCount++] = '十';
-        if (digits[digits.length - 2] != 1)
-          kanji[kanjiCount++] = this.digitToKanji(digits[digits.length - 2]);
-      }
-
-      if (digits.length - 3 >= 0 && digits[digits.length - 3] != 0) { //if there is a 100's digit, put 100 and the digit in the array
-        kanji[kanjiCount++] = '百';
-        if (digits[digits.length - 3] != 1)
-          kanji[kanjiCount++] = this.digitToKanji(digits[digits.length - 3]);
-      }
-
-      kanji.reverse();
-    }
-    
-    this.translation = kanji.join('');
     this.translationDone = true;
-    //alert(kanji.join(''));
-
-  }
-
-  digitToKanji(digit: number) { //why does this need 'function'???!!!
-    switch (digit = Math.floor(digit)) { //get rid of decimal. Too much for tonight
-      case 0:
-        return '零';
-      case 1:
-        return '一';
-      case 2:
-        return '二';
-      case 3:
-        return '三';
-      case 4:
-        return '四';
-      case 5:
-        return '五';
-      case 6:
-        return '六';
-      case 7:
-        return '七';
-      case 8:
-        return '八';
-      case 9:
-        return '九';
-      case 10:
-        return '十';
-      case 100:
-        return '百';
-      case 1000:
-        return '千';
-      case 10000:
-        return '一万';
-      default:
-        return 'x';
-    }
+    this.translation = (prefix + current);
+    return;
   }
 }
