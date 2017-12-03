@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+
 import { TextToSpeech } from '@ionic-native/text-to-speech'; //cordova plugin add cordova-plugin-tts
 import { NavController } from 'ionic-angular';
 
@@ -6,7 +7,6 @@ import { NavController } from 'ionic-angular';
   selector: 'page-home',
   templateUrl: 'home.html'
 })
-
 export class HomePage {
   masks: any = {
     toTranslate: [/[1-9]/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/]
@@ -33,7 +33,6 @@ export class HomePage {
 
   specialNames: string[] = [
     '', '万', '億', '兆', '京', '垓', '𥝱', '穣'];
-
 
   numNames: string[] = [
     '', '一', '二', '三', '四', '五', '六', '七', '八', '九', '十'];
