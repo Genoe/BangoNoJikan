@@ -1,16 +1,16 @@
 <?xml version='1.0' encoding='utf-8'?>
 <widget id="com.ionicframework.bangoji175807" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
-    <name>単語の時間</name>
-    <description>An awesome Ionic/Cordova app.</description>
-    <author email="hi@ionicframework" href="http://ionicframework.com/">Ionic Framework Team</author>
-    <content src="index.html"/>
-    <access origin="*"/>
-    <allow-intent href="http://*/*"/>
-    <allow-intent href="https://*/*"/>
-    <allow-intent href="tel:*"/>
-    <allow-intent href="sms:*"/>
-    <allow-intent href="mailto:*"/>
-    <allow-intent href="geo:*"/>
+  <name>単語の時間</name>
+  <description>An awesome Ionic/Cordova app.</description>
+  <author email="hi@ionicframework" href="http://ionicframework.com/">Ionic Framework Team</author>
+  <content src="index.html"/>
+  <access origin="*"/>
+  <allow-intent href="http://*/*"/>
+  <allow-intent href="https://*/*"/>
+  <allow-intent href="tel:*"/>
+  <allow-intent href="sms:*"/>
+  <allow-intent href="mailto:*"/>
+  <allow-intent href="geo:*"/>
     <preference name="ScrollEnabled" value="false"/>
     <preference name="android-minSdkVersion" value="16"/>
     <preference name="BackupWebStorage" value="none"/>
@@ -20,8 +20,8 @@
     <preference name="SplashScreen" value="screen"/>
     <preference name="SplashScreenDelay" value="3000"/>
     <preference name="KeyboardDisplayRequiresUserAction" value="false"/>
-    <platform name="android">
-        <allow-intent href="market:*"/>
+  <platform name="android">
+      <allow-intent href="market:*"/>
         <icon density="ldpi" src="resources/android/icon/drawable-ldpi-icon.png"/>
         <icon density="mdpi" src="resources/android/icon/drawable-mdpi-icon.png"/>
         <icon density="hdpi" src="resources/android/icon/drawable-hdpi-icon.png"/>
@@ -40,10 +40,10 @@
         <splash density="port-xhdpi" src="resources/android/splash/drawable-port-xhdpi-screen.png"/>
         <splash density="port-xxhdpi" src="resources/android/splash/drawable-port-xxhdpi-screen.png"/>
         <splash density="port-xxxhdpi" src="resources/android/splash/drawable-port-xxxhdpi-screen.png"/>
-    </platform>
-    <platform name="ios">
-        <allow-intent href="itms:*"/>
-        <allow-intent href="itms-apps:*"/>
+  </platform>
+  <platform name="ios">
+      <allow-intent href="itms:*"/>
+      <allow-intent href="itms-apps:*"/>
         <icon height="57" src="resources/ios/icon/icon.png" width="57"/>
         <icon height="114" src="resources/ios/icon/icon@2x.png" width="114"/>
         <icon height="40" src="resources/ios/icon/icon-40.png" width="40"/>
@@ -76,7 +76,7 @@
         <splash height="960" src="resources/ios/splash/Default@2x~iphone.png" width="640"/>
         <splash height="480" src="resources/ios/splash/Default~iphone.png" width="320"/>
         <splash height="2732" src="resources/ios/splash/Default@2x~universal~anyany.png" width="2732"/>
-    </platform>
+  </platform>
     <engine name="ios" spec="4.5.3"/>
     <plugin name="cordova-plugin-tts" spec="^0.2.3"/>
     <plugin name="ionic-plugin-keyboard" spec="^2.2.1"/>
