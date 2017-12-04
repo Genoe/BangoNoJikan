@@ -6,17 +6,41 @@
   </ion-navbar>
 </ion-header>
 
-<ion-content padding>
-  
+<ion-content>
+  <ion-item no-lines>
+    <ion-input 
+    style="font-size: 20px;"
+    padding-top
+    autofocus
+    text-center
+    type="tel" 
+    [(ngModel)]="toTranslate" 
+    [textMask]="{mask: masks.toTranslate, guide: false}"
+    (input)="onTranslate($event)"
+    maxlength="10"></ion-input>
+  </ion-item>
 
-    <ion-item>
-      <ion-label floating>Enter a number between 0 and 1000 to translate</ion-label>
-      <ion-input type="number" [value]="toTranslate" [(ngModel)]="toTranslate"></ion-input>
+  <ion-list row-no-padding border>
+    <ion-item *ngIf="translationDone" no-lines>
+      <ion-item>
+        <ion-item text-wrap text-center>
+          <h1>
+            {{translation}}
+          </h1>
+        </ion-item>
+        <button
+          ion-button
+          large
+          style="zoom:1.5;"
+          icon-start
+          (click)='speak()'
+          clear
+          item-right
+        >
+          <ion-icon name="volume-up"></ion-icon>
+        </button>
+      </ion-item>
     </ion-item>
+  </ion-list>
 
-    <ion-item *ngIf="translationDone">
-      <p>{{translation}}</p>
-    </ion-item>
- 
-  <button ion-button (click)='translate()'>Translate!</button>
 </ion-content>

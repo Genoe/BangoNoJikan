@@ -32,3 +32,6 @@ $RECYCLE.BIN/
 .DS_Store
 Thumbs.db
 UserInterfaceState.xcuserstate
+.sourcemaps/main.css.map
+.sourcemaps/main.js.map
+.package-lock.json
